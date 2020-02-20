@@ -33,24 +33,43 @@ public class Main extends Application{
     }
     @Override
     public void start(Stage root) throws Exception {
+        /**
+         * Configuraciones iniciales de la ventana
+         */
       root.setTitle(puerto);
       root.setHeight(500);
       root.setWidth(350);
       root.setResizable(false);
       
+      /**
+       * Boton que abre una ventana 
+       * donde se enviará un mensaje nuevo
+       */
       Button nuevoMensaje = new Button ();
       nuevoMensaje.setOnAction(e -> VentanaNuevoMensaje.mostrar());
       nuevoMensaje.setText("+");
       nuevoMensaje.setFont(new Font ("Arial", 20));
       nuevoMensaje.setMinWidth(334);
       
+      /**
+       * Layout donde se mostrarán
+       * los mensajes recibidos
+       */
       VBox mensajes = new VBox ();
       mensajes.setSpacing(5);
       
+      /**
+       * Layout donde se colocarán
+       * los mensajes y el botón
+       * para enviar un nuevo mensaje
+       */
       BorderPane layout = new BorderPane ();
       layout.setCenter(mensajes);
       layout.setBottom(nuevoMensaje);
       
+      /**
+       * Scene con el layout de la ventana principal
+       */
       Scene principal = new Scene(layout, 500, 300);
       
       root.setScene(principal);

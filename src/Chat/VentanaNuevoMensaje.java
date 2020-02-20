@@ -22,7 +22,14 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class VentanaNuevoMensaje extends Application {
+    /**
+     * Muestra la ventana donde se indicará
+     * a qué puerto enviar un mensaje
+     */
     public static void mostrar (){
+        /**
+         * Configuraciones iniciales de la ventana
+         */
         Stage stage = new Stage ();
         stage.setTitle("Nuevo Mensaje");
         stage.setResizable(false);
@@ -30,31 +37,61 @@ public class VentanaNuevoMensaje extends Application {
         stage.setWidth (350);
         stage.initModality(Modality.APPLICATION_MODAL);
         
+        /**
+         * Boton para enviar el mensaje
+         * al puerto ingresado
+         */
         Button enviar = new Button ();
         enviar.setText("Enviar");
         enviar.setFont(new Font ("Arial", 20));
         
+        /**
+         * Label que indica donde ingresar
+         * el puerto donde se enviará
+         * el mensaje
+         */
         Label puerto = new Label ();
         puerto.setText("Puerto:");
         puerto.setFont(new Font ("Arial", 20));
         
+        /**
+         * Entrada de texto donde
+         * se escribirá el puerto
+         * al que se enviará el mensaje
+         */
         TextField entryPuerto = new TextField ();
         entryPuerto.setFont(new Font ("Arial", 20));
         entryPuerto.setAlignment(Pos.CENTER);
         
+        /**
+         * Label que indica donde ingresar
+         * el mensaje que se enviará
+         */        
         Label mensaje = new Label ();
         mensaje.setText("Mensaje:");
         mensaje.setFont(new Font ("Arial", 20));
         
+        /**
+         * Entrada de texto donde
+         * se escribirá el mensaje
+         * que se enviará
+         */        
         TextField entryMensaje = new TextField ();
         entryMensaje.setFont(new Font ("Arial", 20));
         entryMensaje.setAlignment(Pos.CENTER_LEFT);
         
+        /**
+         * Layout donde se colocarán
+         * todos los elementos de la ventana
+         */
         VBox datos = new VBox ();
         datos.setPadding(new Insets (10,5,10,5));
         datos.setSpacing(10);
         datos.getChildren().addAll(puerto, entryPuerto, mensaje, entryMensaje, enviar);
-                
+        
+        /**
+         * scene de la ventana
+         */
         Scene scene = new Scene (datos, 300, 300);        
         
         stage.setScene(scene);

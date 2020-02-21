@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 
 /**
  *Clase Server
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
 public class Server implements Runnable{
     private ServerSocket serverSocket;
     private Socket clientSocket;
-    private boolean active = true;
+    private final boolean active = true;
     String mensaje;
     
     public void start (int port) throws IOException{
@@ -28,11 +29,18 @@ public class Server implements Runnable{
             clientSocket = serverSocket.accept();
             BufferedReader lector = new BufferedReader (new InputStreamReader (clientSocket.getInputStream()));
             mensaje = lector.readLine();
-            System.out.println(mensaje);
-            serverSocket.close();            
+            Platform.runLater(new Runnable (){
+                @Override
+                public void run() {
+                    Main.agregarMensaje (mensaje);
+                }
+                
+            });
+            System.out.println(clientSocket.getPort ());
+            serverSocket.close();
         }
     }
-
+    
     @Override
     public void run() {
         try {

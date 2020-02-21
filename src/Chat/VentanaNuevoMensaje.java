@@ -1,5 +1,8 @@
 package Chat;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -22,8 +24,15 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class VentanaNuevoMensaje extends Application {
+    private static Stage stage = new Stage ();
     static TextField entryMensaje;
     static TextField entryPuerto;
+    static Label puerto;
+    static Label mensaje;
+    static Button enviar;
+    static VBox datos;
+    static Scene scene;
+    
     /**
      * Muestra la ventana donde se indicará
      * a qué puerto enviar un mensaje
@@ -32,19 +41,17 @@ public class VentanaNuevoMensaje extends Application {
         /**
          * Configuraciones iniciales de la ventana
          */
-        Stage stage = new Stage ();
         stage.setTitle("Nuevo Mensaje");
         stage.setResizable(false);
         stage.setHeight(255);
         stage.setWidth (350);
-        stage.initModality(Modality.APPLICATION_MODAL);
         
         /**
          * Label que indica donde ingresar
          * el puerto donde se enviará
          * el mensaje
          */
-        Label puerto = new Label ();
+        puerto = new Label ();
         puerto.setText("Puerto:");
         puerto.setFont(new Font ("Arial", 20));
         
@@ -61,7 +68,7 @@ public class VentanaNuevoMensaje extends Application {
          * Label que indica donde ingresar
          * el mensaje que se enviará
          */        
-        Label mensaje = new Label ();
+        mensaje = new Label ();
         mensaje.setText("Mensaje:");
         mensaje.setFont(new Font ("Arial", 20));
         
@@ -78,10 +85,14 @@ public class VentanaNuevoMensaje extends Application {
          * Boton para enviar el mensaje
          * al puerto ingresado
          */
-        Button enviar = new Button ();
+        enviar = new Button ();
         enviar.setOnAction(e -> {
-            Runnable client = new Client ();
-            new Thread (client).start();
+            try {
+                Client.conectar("127.0.0.1", Integer.parseInt(entryPuerto.getText()));
+            } catch (IOException ex) {
+                Logger.getLogger(VentanaNuevoMensaje.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            stage.close ();
         });
         enviar.setText("Enviar");
         enviar.setFont(new Font ("Arial", 20));        
@@ -90,7 +101,7 @@ public class VentanaNuevoMensaje extends Application {
          * Layout donde se colocarán
          * todos los elementos de la ventana
          */
-        VBox datos = new VBox ();
+        datos = new VBox ();
         datos.setPadding(new Insets (10,5,10,5));
         datos.setSpacing(10);
         datos.getChildren().addAll(puerto, entryPuerto, mensaje, entryMensaje, enviar);
@@ -98,7 +109,7 @@ public class VentanaNuevoMensaje extends Application {
         /**
          * scene de la ventana
          */
-        Scene scene = new Scene (datos, 300, 300);        
+        scene = new Scene (datos, 300, 300);        
         
         stage.setScene(scene);
         stage.show();

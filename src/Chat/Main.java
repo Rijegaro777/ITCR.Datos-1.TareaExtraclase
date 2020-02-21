@@ -1,6 +1,7 @@
 package Chat;
 
 import java.io.IOException;
+import java.util.Random;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,12 +24,13 @@ public class Main extends Application{
      * Ventana principal del programa
      */
     private final Stage root = new Stage ();
+    static Random rand = new Random ();
+    static int puerto = rand.nextInt((6555 - 1024)+1) + 1024;
     
-    static int puerto = 6666;
     /**
      * String para el puerto que se utilizará
      */
-    private String titulo = "Puerto: " + puerto;
+    private static String titulo = "Puerto: " + puerto;
     
     public static void main(String[] args) throws IOException {
         Runnable server = new Server ();

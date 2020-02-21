@@ -16,9 +16,9 @@ public class Client implements Runnable{
     private Socket client;
     
     public void conectar (String IP, int puerto) throws IOException{
-        Socket client = new Socket (IP, 6666);
+        Socket client = new Socket (IP, puerto);
         OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
-        writer.write("Hola\n");
+        writer.write(VentanaNuevoMensaje.entryMensaje.getText());
         writer.flush();
         client.close();
     }
@@ -26,7 +26,7 @@ public class Client implements Runnable{
     @Override
     public void run() {
         try {
-            this.conectar("127.0.0.1", Main.puerto);
+            this.conectar("127.0.0.1", Integer.parseInt(VentanaNuevoMensaje.entryPuerto.getText()));
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }

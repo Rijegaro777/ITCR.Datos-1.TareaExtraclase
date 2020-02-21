@@ -22,6 +22,8 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class VentanaNuevoMensaje extends Application {
+    static TextField entryMensaje;
+    static TextField entryPuerto;
     /**
      * Muestra la ventana donde se indicará
      * a qué puerto enviar un mensaje
@@ -38,18 +40,6 @@ public class VentanaNuevoMensaje extends Application {
         stage.initModality(Modality.APPLICATION_MODAL);
         
         /**
-         * Boton para enviar el mensaje
-         * al puerto ingresado
-         */
-        Button enviar = new Button ();
-        enviar.setOnAction(e -> {
-            Runnable client = new Client ();
-            new Thread (client).start();
-        });
-        enviar.setText("Enviar");
-        enviar.setFont(new Font ("Arial", 20));
-        
-        /**
          * Label que indica donde ingresar
          * el puerto donde se enviará
          * el mensaje
@@ -63,7 +53,7 @@ public class VentanaNuevoMensaje extends Application {
          * se escribirá el puerto
          * al que se enviará el mensaje
          */
-        TextField entryPuerto = new TextField ();
+        entryPuerto = new TextField ();
         entryPuerto.setFont(new Font ("Arial", 20));
         entryPuerto.setAlignment(Pos.CENTER);
         
@@ -80,9 +70,21 @@ public class VentanaNuevoMensaje extends Application {
          * se escribirá el mensaje
          * que se enviará
          */        
-        TextField entryMensaje = new TextField ();
+        entryMensaje = new TextField ();
         entryMensaje.setFont(new Font ("Arial", 20));
         entryMensaje.setAlignment(Pos.CENTER_LEFT);
+        
+        /**
+         * Boton para enviar el mensaje
+         * al puerto ingresado
+         */
+        Button enviar = new Button ();
+        enviar.setOnAction(e -> {
+            Runnable client = new Client ();
+            new Thread (client).start();
+        });
+        enviar.setText("Enviar");
+        enviar.setFont(new Font ("Arial", 20));        
         
         /**
          * Layout donde se colocarán

@@ -1,9 +1,9 @@
 package Chat;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -23,20 +23,24 @@ public class Main extends Application{
      * Ventana principal del programa
      */
     private final Stage root = new Stage ();
+    
+    static int puerto = 6666;
     /**
      * String para el puerto que se utilizará
      */
-    private String puerto = "Puerto: " + "0000";
+    private String titulo = "Puerto: " + puerto;
     
-    public static void main(String[] args) {
-       launch(args); 
+    public static void main(String[] args) throws IOException {
+        Runnable server = new Server ();
+        new Thread (server).start();
+        launch(args); 
     }
     @Override
     public void start(Stage root) throws Exception {
         /**
          * Configuraciones iniciales de la ventana
          */
-      root.setTitle(puerto);
+      root.setTitle(titulo);
       root.setHeight(500);
       root.setWidth(350);
       root.setResizable(false);

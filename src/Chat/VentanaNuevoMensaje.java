@@ -42,6 +42,10 @@ public class VentanaNuevoMensaje extends Application {
          * al puerto ingresado
          */
         Button enviar = new Button ();
+        enviar.setOnAction(e -> {
+            Runnable client = new Client ();
+            new Thread (client).start();
+        });
         enviar.setText("Enviar");
         enviar.setFont(new Font ("Arial", 20));
         

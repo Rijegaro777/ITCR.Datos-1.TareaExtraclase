@@ -118,8 +118,6 @@ public class Main extends Application{
             for (int i = 0; i < listaHistorial.getLength(); i++){
                 Lista sublista = (Lista) listaHistorial.getPos(i);
                 int puertoChat = (int) sublista.getPos(1);
-                System.out.println("Puerto =" + puerto);
-                System.out.println("PuertoChat = " + puertoChat);
                 if (puertoChat == Integer.parseInt(puerto)){
                     actualizarHistorial (msj, Integer.parseInt(puerto));
                     return;
@@ -144,20 +142,17 @@ public class Main extends Application{
     }
     
     public static void actualizarHistorial (String msj, int puerto){
-        if (listaHistorial.getLength() != 0){
-            for (int i = 0; i < listaHistorial.getLength(); i++){
-                Lista sublista = (Lista) listaHistorial.getPos(i);
-                int puertoChat = (int) sublista.getPos(1);
-                VBox mensajesChat = (VBox) sublista.getPos(0);
-                if (puertoChat == puerto){
-                    mensajesChat.getChildren().add(new Label (msj));
-                    return;
-                }
-            crearHistorial (msj, puerto);
+        for (int i = 0; i < listaHistorial.getLength(); i++){
+            Lista sublista = (Lista) listaHistorial.getPos(i);
+            int puertoChat = (int) sublista.getPos(1);
+            VBox mensajesChat = (VBox) sublista.getPos(0);
+            if (puertoChat == puerto){
+                mensajesChat.getChildren().add(new Label (msj));
+                return;
             }
-        }else {
-            crearHistorial (msj, puerto); 
         }
+        System.out.println ("Hola");
+        crearHistorial (msj, puerto);
     }
     
     public static void crearHistorial (String msj, int puerto){

@@ -20,25 +20,27 @@ public class Server implements Runnable{
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private final boolean active = true;
-    String mensaje;
+    String [] mensaje;
     
     public void start (int port) throws IOException{
         while (active){
-            System.out.println("Listening");
             serverSocket = new ServerSocket (port);
             clientSocket = serverSocket.accept();
             BufferedReader lector = new BufferedReader (new InputStreamReader (clientSocket.getInputStream()));
-            mensaje = lector.readLine();
-            Platform.runLater(new Runnable (){
-                @Override
-                public void run() {
-                    Main.agregarMensaje (mensaje);
-                }
-                
-            });
-            System.out.println(clientSocket.getPort ());
+            mensaje = lector.readLine().split("%");
+            procesarTexto (mensaje);
             serverSocket.close();
         }
+    }
+    
+    public void procesarTexto (String [] mensaje){
+        Platform.runLater(new Runnable (){
+            @Override
+            public void run() {
+                //Main.actualizarHistorial(mensaje [1], Integer.parseInt(mensaje[0]));                
+                Main.actualizarRecibido(mensaje [1], mensaje [0]);
+            }
+        });        
     }
     
     @Override

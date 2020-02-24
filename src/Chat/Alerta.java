@@ -13,7 +13,7 @@ public class Alerta extends Application {
     /**
      * Muestra la ventana de error con el mensaje que se le indique
      * como parámetro.
-     * @param msg 
+     * @param msg String con el mensaje que se mostrará en la ventana.
      */
     public static void display (String msg){
         Stage rootAlerta;

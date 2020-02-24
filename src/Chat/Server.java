@@ -27,7 +27,7 @@ public class Server implements Runnable{
      * Espera a que otro socket se conecte y lee el mensaje, luego
      * procesa el texto recibido en la funcion procesarTexto;
      * Cierra la conexion al finalizar.
-     * @param port
+     * @param port El puerto en el que se conectará el socketserver.
      * @throws IOException 
      */
     public void start (int port) throws IOException{

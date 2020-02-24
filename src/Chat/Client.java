@@ -17,8 +17,8 @@ public class Client{
      * Se conecta a la IP y al puerto que se le indiquen
      * y envía el puerto del ServerSocket con un marcador
      * que luego será procesado por el ServerSocket que lo reciba.
-     * @param IP
-     * @param puerto
+     * @param IP Siempre tendrá la misma IP.
+     * @param puerto Puerto con el que se desea comunicar.
      * @throws IOException 
      */
     public static void conectar (String IP, int puerto) throws IOException{

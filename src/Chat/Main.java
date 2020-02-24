@@ -57,7 +57,7 @@ public class Main extends Application{
      * Contiene las configuracion de los 
      * elementos de la ventana principal.
      * 
-     * @param root
+     * @param root el stage que contendrá todos los elementos de la ventana principal.
      * @throws Exception 
      */
     @Override
@@ -107,8 +107,8 @@ public class Main extends Application{
      * buscando una sublista donde haya un puerto
      * igual al recibido.Si no existe o la lista está vacía, 
      * ejecuta el método crearRecibido con los mismos parámetros.
-     * @param msj
-     * @param puerto 
+     * @param msj el mensaje recibido.
+     * @param puerto el puerto desde el que se recibió el mensaje.
      */
     
     public static void actualizarRecibido (String msj, String puerto){
@@ -131,8 +131,8 @@ public class Main extends Application{
      * con el que se está hablando y ejecuta la funcion 
      * crearHistorial;Cuando se hace click sobre el texto, 
      * se ejecuta la funcion mostrarHistorial con el puerto como parámetro.
-     * @param msj
-     * @param emisor 
+     * @param msj El mensaje recibido.
+     * @param emisor El puerto desde el que se recibió el mensaje.
      */
     public static void crearRecibido (String msj, String emisor){
         Text puerto = new Text ();
@@ -149,8 +149,8 @@ public class Main extends Application{
     /**
      * Agrega el mensaje recibido como parámetro a la conversación 
      * con el puerto recibido como parámetro.
-     * @param msj
-     * @param puerto 
+     * @param msj El mensaje recibido.
+     * @param puerto El puerto desde el que se recibió el mensaje.
      */
     public static void actualizarHistorial (String msj, int puerto){
         for (int i = 0; i < listaHistorial.getLength(); i++){
@@ -175,8 +175,8 @@ public class Main extends Application{
      * Crea una sublista que contiene el mensaje 
      * y el puerto con el que se intercambió dicho mensaje,
      * luego la agrega a listaHistorial.
-     * @param msj
-     * @param puerto 
+     * @param msj El mensaje recibido.
+     * @param puerto El puerto desde el que se recibió el mensaje.
      */
     public static void crearHistorial (String msj, int puerto){
         VBox historial = new VBox ();
@@ -199,7 +199,7 @@ public class Main extends Application{
      * Cambia el contenido del espacio grande 
      * por la conversación con el puerto que se 
      * haya seleccionado.
-     * @param puerto 
+     * @param puerto El puerto que se clickeó.
      */
     public static void mostrarHistorial (int puerto){
         for (int i = 0; i < listaHistorial.getLength(); i++){
@@ -216,8 +216,8 @@ public class Main extends Application{
      * Agrega los mensajes enviados a la 
      * conversacion con el puerto al que se haya enviado,
      * si no existía el historial anteriormente, lo crea.
-     * @param msj
-     * @param puerto 
+     * @param msj El mensaje enviado.
+     * @param puerto El puerto hacia el que se envió el mensaje.
      */
     public static void crearMensajePropio (String msj, int puerto){
         Text mensaje = new Text ();

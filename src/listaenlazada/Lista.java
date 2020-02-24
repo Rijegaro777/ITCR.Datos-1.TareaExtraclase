@@ -24,7 +24,7 @@ public class Lista {
     
     /**
      * Añade el objeto que reciba como parámetro a la lista.
-     * @param valor 
+     * @param valor El objeto que se agregará.
      */
     public void add (Object valor){
         if (this.head == null){ 
@@ -65,7 +65,7 @@ public class Lista {
     /**
      * Elimina el objeto que se encuentre en 
      * la posición indicada de la lista.
-     * @param pos 
+     * @param pos la posición de la lista que se desea eliminar; Comienza en 0.
      */
     public void delete (int pos){
         Nodo temp = this.head;
@@ -104,7 +104,7 @@ public class Lista {
     }
     
     /**
-     * @param pos
+     * @param pos la posición de la lista que se desea consultar; Comienza en 0.
      * @return devuelve el objeto que esté en la posicion indicada de la lista.
      */
     public Object getPos (int pos){
@@ -121,8 +121,8 @@ public class Lista {
     /**
      * Cambia el objeto en la posicion de la 
      * lista indicada por el objeto que se reciba como parámetro.
-     * @param pos
-     * @param valor 
+     * @param pos la posicion de la lista que se desea cambiar; Comienza en 0.
+     * @param valor el objeto que se desea colocar en dicha posición.
      */
     public void setPos (int pos, Object valor){
         Nodo temp = this.head;

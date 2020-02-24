@@ -6,11 +6,11 @@ import java.util.Random;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -44,7 +44,7 @@ public class Main extends Application{
 
     
     /**
-     * String para el puerto que se utilizará
+     * String para el puertoEnviado que se utilizará
      */
     private static String titulo = "Puerto: " + puerto;
     
@@ -87,11 +87,13 @@ public class Main extends Application{
       scrollContactos.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
       scrollContactos.setMinWidth(100);
       scrollContactos.setContent(mensajes);
+      scrollContactos.setStyle("-fx-background: #C0C0C0");
       
       scrollHistorial = new ScrollPane ();
       scrollHistorial.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
       scrollHistorial.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
       scrollHistorial.setMinWidth (234);
+      scrollHistorial.setStyle("-fx-background: #F5F5DC");
       
       /**
        * Layout donde se colocarán
@@ -102,6 +104,7 @@ public class Main extends Application{
       layout.setLeft(scrollContactos);
       layout.setBottom(nuevoMensaje);
       layout.setCenter(scrollHistorial);
+      
       
       /**
        * Scene con el layout de la ventana principal
@@ -147,17 +150,30 @@ public class Main extends Application{
             int puertoChat = (int) sublista.getPos(1);
             VBox mensajesChat = (VBox) sublista.getPos(0);
             if (puertoChat == puerto){
-                mensajesChat.getChildren().add(new Label (msj));
+                Text mensaje = new Text ();
+                mensaje.setFont(new Font ("Arial", 22));
+                mensaje.setText(msj);
+                mensaje.setWrappingWidth(226);
+                mensaje.setTextAlignment(TextAlignment.LEFT);
+                mensaje.setFill(Color.LIMEGREEN);
+                mensajesChat.getChildren().add(mensaje);
                 return;
             }
         }
-        System.out.println ("Hola");
         crearHistorial (msj, puerto);
     }
     
     public static void crearHistorial (String msj, int puerto){
         VBox historial = new VBox ();
-        historial.getChildren().add(new Label (msj));
+        Text mensaje = new Text ();
+        mensaje.setFont(new Font ("Arial", 18));
+        mensaje.setText(msj);
+        mensaje.setWrappingWidth(226);
+        mensaje.setTextAlignment(TextAlignment.LEFT);
+        mensaje.setFill(Color.CYAN);
+        historial.setSpacing(10);
+        historial.setMaxWidth(234);
+        historial.getChildren().add(mensaje);
         Lista chat = new Lista ();
         chat.add(historial);
         chat.add(puerto);
@@ -172,6 +188,43 @@ public class Main extends Application{
             if (puertoChat == puerto){
                 scrollHistorial.setContent(mensajesChat);
             }
+        }
+    }
+    
+    public static void crearMensajePropio (String msj, int puerto){
+        Text mensaje = new Text ();
+        mensaje.setFont(new Font ("Arial", 22));
+        mensaje.setText(msj);
+        mensaje.setWrappingWidth(226);
+        mensaje.setTextAlignment(TextAlignment.RIGHT);
+        mensaje.setFill(Color.DEEPPINK);
+        if (listaHistorial.getLength() == 0){
+            VBox historial = new VBox ();
+            historial.setSpacing(10);
+            historial.setMaxWidth(234);
+            historial.getChildren().add(mensaje);
+            Lista chat = new Lista ();
+            chat.add(historial);
+            chat.add(puerto);
+            listaHistorial.add(chat);
+            Text puertoEnviado = new Text ();
+            puertoEnviado.setStyle("-fx-background: #1E90FF ");
+            puertoEnviado.setFont(new Font ("Arial", 20));
+            puertoEnviado.setText(Integer.toString(puerto));
+            puertoEnviado.setWrappingWidth(100);
+            puertoEnviado.setTextAlignment(TextAlignment.CENTER);
+            mensajes.add(puertoEnviado, 0, posicion);
+            posicion += 1;            
+            puertoEnviado.setOnMouseClicked(e -> mostrarHistorial (Integer.parseInt(puertoEnviado.getText())));
+        }else{
+            for (int i = 0; i < listaHistorial.getLength(); i++){
+                Lista sublista = (Lista) listaHistorial.getPos(i);
+                int puertoChat = (int) sublista.getPos(1);
+                VBox mensajesChat = (VBox) sublista.getPos(0);
+                if (puertoChat == puerto){
+                    mensajesChat.getChildren().add (mensaje);
+                }
+            }            
         }
     }
 }

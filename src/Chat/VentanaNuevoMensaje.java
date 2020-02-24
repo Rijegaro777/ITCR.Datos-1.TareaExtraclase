@@ -89,6 +89,7 @@ public class VentanaNuevoMensaje extends Application {
         enviar.setOnAction(e -> {
             try {
                 Client.conectar("127.0.0.1", Integer.parseInt(entryPuerto.getText()));
+                Main.crearMensajePropio(entryMensaje.getText (), Integer.parseInt(entryPuerto.getText()));
             } catch (IOException ex) {
                 Logger.getLogger(VentanaNuevoMensaje.class.getName()).log(Level.SEVERE, null, ex);
             }

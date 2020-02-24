@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -36,8 +37,7 @@ public class Server implements Runnable{
     public void procesarTexto (String [] mensaje){
         Platform.runLater(new Runnable (){
             @Override
-            public void run() {
-                //Main.actualizarHistorial(mensaje [1], Integer.parseInt(mensaje[0]));                
+            public void run() {               
                 Main.actualizarRecibido(mensaje [1], mensaje [0]);
             }
         });        
@@ -48,7 +48,7 @@ public class Server implements Runnable{
         try {
             this.start(Main.puerto);
         } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            Main.puerto = new Random ().nextInt((6555 - 1024)+1) + 1024;
         }
     }
 }

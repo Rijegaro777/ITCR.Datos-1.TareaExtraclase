@@ -252,16 +252,7 @@ public class Main extends Application{
                 if (puertoChat == puerto){
                     mensajesChat.getChildren().add (mensaje);
                     return;
-                }
-                Text puertoEnviado = new Text ();
-                puertoEnviado.setStyle("-fx-background: #1E90FF ");
-                puertoEnviado.setFont(new Font ("Arial", 20));
-                puertoEnviado.setText(Integer.toString(puerto));
-                puertoEnviado.setWrappingWidth(100);
-                puertoEnviado.setTextAlignment(TextAlignment.CENTER);
-                mensajes.add(puertoEnviado, 0, posicion);
-                posicion += 1;            
-                puertoEnviado.setOnMouseClicked(e -> mostrarHistorial (Integer.parseInt(puertoEnviado.getText())));                
+                }                
             }            
         }
     }

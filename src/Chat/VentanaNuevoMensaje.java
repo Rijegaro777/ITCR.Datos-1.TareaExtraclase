@@ -1,8 +1,6 @@
 package Chat;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -64,6 +62,7 @@ public class VentanaNuevoMensaje extends Application {
         entryPuerto.setFont(new Font ("Arial", 20));
         entryPuerto.setAlignment(Pos.CENTER);
         
+        
         /**
          * Label que indica donde ingresar
          * el mensaje que se enviará
@@ -87,11 +86,19 @@ public class VentanaNuevoMensaje extends Application {
          */
         enviar = new Button ();
         enviar.setOnAction(e -> {
-            try {
-                Client.conectar("127.0.0.1", Integer.parseInt(entryPuerto.getText()));
-                Main.crearMensajePropio(entryMensaje.getText (), Integer.parseInt(entryPuerto.getText()));
-            } catch (IOException ex) {
-                Logger.getLogger(VentanaNuevoMensaje.class.getName()).log(Level.SEVERE, null, ex);
+            if (entryPuerto.getText().trim().isBlank()){
+                Alerta.display("Error al enviar el mensaje: \n Debe indicar un puerto.");
+            }else if (Integer.parseInt(entryPuerto.getText()) == Main.puerto) {
+                Alerta.display("Error al enviar el mensaje: \n El puerto debe ser diferente.");
+            }else if (entryMensaje.getText().trim().isBlank ()) {
+                Alerta.display("Error al enviar el mensaje: \n El mensaje debe tener contenido.");
+            }else{
+                try {
+                    Client.conectar("127.0.0.1", Integer.parseInt(entryPuerto.getText()));
+                    Main.crearMensajePropio(entryMensaje.getText (), Integer.parseInt(entryPuerto.getText()));
+                } catch (IOException ex) {
+                    Alerta.display("Error al enviar el mensaje: \n Puerto inválido.");
+                }                
             }
             stage.close ();
         });

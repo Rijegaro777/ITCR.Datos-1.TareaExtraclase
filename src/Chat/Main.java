@@ -153,7 +153,7 @@ public class Main extends Application{
                 Text mensaje = new Text ();
                 mensaje.setFont(new Font ("Arial", 22));
                 mensaje.setText(msj);
-                mensaje.setWrappingWidth(226);
+                mensaje.setWrappingWidth(220);
                 mensaje.setTextAlignment(TextAlignment.LEFT);
                 mensaje.setFill(Color.LIMEGREEN);
                 mensajesChat.getChildren().add(mensaje);
@@ -166,11 +166,11 @@ public class Main extends Application{
     public static void crearHistorial (String msj, int puerto){
         VBox historial = new VBox ();
         Text mensaje = new Text ();
-        mensaje.setFont(new Font ("Arial", 18));
+        mensaje.setFont(new Font ("Arial", 22));
         mensaje.setText(msj);
-        mensaje.setWrappingWidth(226);
+        mensaje.setWrappingWidth(220);
         mensaje.setTextAlignment(TextAlignment.LEFT);
-        mensaje.setFill(Color.CYAN);
+        mensaje.setFill(Color.LIMEGREEN);
         historial.setSpacing(10);
         historial.setMaxWidth(234);
         historial.getChildren().add(mensaje);
@@ -195,7 +195,7 @@ public class Main extends Application{
         Text mensaje = new Text ();
         mensaje.setFont(new Font ("Arial", 22));
         mensaje.setText(msj);
-        mensaje.setWrappingWidth(226);
+        mensaje.setWrappingWidth(216);
         mensaje.setTextAlignment(TextAlignment.RIGHT);
         mensaje.setFill(Color.DEEPPINK);
         if (listaHistorial.getLength() == 0){

@@ -23,6 +23,15 @@ public class Server implements Runnable{
     private final boolean active = true;
     String [] mensaje;
     
+    
+    /**
+     * Se conecta a un puerto aleatorio definido en la clase Main;
+     * Espera a que otro socket se conecte y lee el mensaje, luego
+     * procesa el texto recibido en la funcion procesarTexto;
+     * Cierra la conexion al finalizar.
+     * @param port
+     * @throws IOException 
+     */
     public void start (int port) throws IOException{
         while (active){
             serverSocket = new ServerSocket (port);
@@ -34,6 +43,10 @@ public class Server implements Runnable{
         }
     }
     
+    /**
+     * Ejecuta la funcion actualizarRecibido de la clase Main.
+     * @param mensaje 
+     */
     public void procesarTexto (String [] mensaje){
         Platform.runLater(new Runnable (){
             @Override

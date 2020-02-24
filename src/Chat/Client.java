@@ -13,6 +13,14 @@ import java.net.Socket;
 public class Client{
     private Socket client;
     
+    /**
+     * Se conecta a la IP y al puerto que se le indiquen
+     * y envía el puerto del ServerSocket con un marcador
+     * que luego será procesado por el ServerSocket que lo reciba.
+     * @param IP
+     * @param puerto
+     * @throws IOException 
+     */
     public static void conectar (String IP, int puerto) throws IOException{
         Socket client = new Socket (IP, puerto);
         OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());

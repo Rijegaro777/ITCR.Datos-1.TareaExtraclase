@@ -1,7 +1,6 @@
 package Chat;
 
 import listaenlazada.*;
-import java.io.IOException;
 import java.util.Random;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -20,15 +19,13 @@ import javafx.stage.Stage;
  * Clase Main
  * 
  * Se ejecuta cada vez que se abre el programa
- * Muestra la interfaz de javaFX
+ * Muestra la interfaz de javaFX y crea el 
+ * SocketServer para recibir mensajes.
  * 
  * @author gatge
  * @version 1.0
  */
 public class Main extends Application{
-    /**
-     * Ventana principal del programa
-     */
     private final Stage root = new Stage ();
     static GridPane mensajes;
     static BorderPane layout;
@@ -42,45 +39,43 @@ public class Main extends Application{
     static Random rand = new Random ();
     static int puerto = rand.nextInt((6555 - 1024)+1) + 1024;
 
-    
-    /**
-     * String para el puertoEnviado que se utilizará
-     */
     private static String titulo = "Puerto: " + puerto;
     
-    public static void main(String[] args) throws IOException {
+    /**
+     * Ejecuta un hilo para el SocketServer
+     * y abre la ventana principal de la interfaz
+     * @param args
+     */
+    
+    public static void main(String[] args) {
         Runnable server = new Server ();
         new Thread (server).start();
         launch(args); 
     }
+    
+    /**
+     * Contiene las configuracion de los 
+     * elementos de la ventana principal.
+     * 
+     * @param root
+     * @throws Exception 
+     */
     @Override
     public void start(Stage root) throws Exception {
-        /**
-         * Configuraciones iniciales de la ventana
-         */
       root.setTitle(titulo);
       root.setHeight(500);
       root.setWidth(350);
       root.setResizable(false);
       
-      /**
-       * Boton que abre una ventana 
-       * donde se enviará un mensaje nuevo
-       */
       nuevoMensaje = new Button ();
       nuevoMensaje.setOnAction(e -> VentanaNuevoMensaje.mostrar());
       nuevoMensaje.setText("+");
       nuevoMensaje.setFont(new Font ("Arial", 20));
       nuevoMensaje.setMinWidth(334);
       
-      /**
-       * Layout donde se mostrarán
-       * los mensajes recibidos
-       */
       mensajes = new GridPane ();
       mensajes.setGridLinesVisible(true);
       mensajes.setVgap(10);
-      
       
       scrollContactos = new ScrollPane();
       scrollContactos.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -95,26 +90,26 @@ public class Main extends Application{
       scrollHistorial.setMinWidth (234);
       scrollHistorial.setStyle("-fx-background: #F5F5DC");
       
-      /**
-       * Layout donde se colocarán
-       * los mensajes y el botón
-       * para enviar un nuevo mensaje
-       */
       layout = new BorderPane ();
       layout.setLeft(scrollContactos);
       layout.setBottom(nuevoMensaje);
       layout.setCenter(scrollHistorial);
       
-      
-      /**
-       * Scene con el layout de la ventana principal
-       */
       principal = new Scene(layout, 500, 300);
       
       root.setScene(principal);
       root.setOnCloseRequest(e -> System.exit(0));
       root.show();
     }
+    
+    /**
+     * Si listaHistorial no está vacía, la recorre
+     * buscando una sublista donde haya un puerto
+     * igual al recibido.Si no existe o la lista está vacía, 
+     * ejecuta el método crearRecibido con los mismos parámetros.
+     * @param msj
+     * @param puerto 
+     */
     
     public static void actualizarRecibido (String msj, String puerto){
         if (listaHistorial.getLength() != 0){
@@ -131,7 +126,14 @@ public class Main extends Application{
             crearRecibido (msj, puerto);             
         }
     }    
-    
+    /**
+     * Crea un texto a la izquierda con el numero de puerto
+     * con el que se está hablando y ejecuta la funcion 
+     * crearHistorial;Cuando se hace click sobre el texto, 
+     * se ejecuta la funcion mostrarHistorial con el puerto como parámetro.
+     * @param msj
+     * @param emisor 
+     */
     public static void crearRecibido (String msj, String emisor){
         Text puerto = new Text ();
         puerto.setFont(new Font ("Arial", 20));
@@ -144,6 +146,12 @@ public class Main extends Application{
         crearHistorial (msj, Integer.parseInt(emisor));
     }
     
+    /**
+     * Agrega el mensaje recibido como parámetro a la conversación 
+     * con el puerto recibido como parámetro.
+     * @param msj
+     * @param puerto 
+     */
     public static void actualizarHistorial (String msj, int puerto){
         for (int i = 0; i < listaHistorial.getLength(); i++){
             Lista sublista = (Lista) listaHistorial.getPos(i);
@@ -153,7 +161,7 @@ public class Main extends Application{
                 Text mensaje = new Text ();
                 mensaje.setFont(new Font ("Arial", 22));
                 mensaje.setText(msj);
-                mensaje.setWrappingWidth(220);
+                mensaje.setWrappingWidth(222);
                 mensaje.setTextAlignment(TextAlignment.LEFT);
                 mensaje.setFill(Color.LIMEGREEN);
                 mensajesChat.getChildren().add(mensaje);
@@ -163,12 +171,19 @@ public class Main extends Application{
         crearHistorial (msj, puerto);
     }
     
+    /**
+     * Crea una sublista que contiene el mensaje 
+     * y el puerto con el que se intercambió dicho mensaje,
+     * luego la agrega a listaHistorial.
+     * @param msj
+     * @param puerto 
+     */
     public static void crearHistorial (String msj, int puerto){
         VBox historial = new VBox ();
         Text mensaje = new Text ();
         mensaje.setFont(new Font ("Arial", 22));
         mensaje.setText(msj);
-        mensaje.setWrappingWidth(220);
+        mensaje.setWrappingWidth(222);
         mensaje.setTextAlignment(TextAlignment.LEFT);
         mensaje.setFill(Color.LIMEGREEN);
         historial.setSpacing(10);
@@ -180,6 +195,12 @@ public class Main extends Application{
         listaHistorial.add(chat);   
     }
     
+    /**
+     * Cambia el contenido del espacio grande 
+     * por la conversación con el puerto que se 
+     * haya seleccionado.
+     * @param puerto 
+     */
     public static void mostrarHistorial (int puerto){
         for (int i = 0; i < listaHistorial.getLength(); i++){
             Lista sublista = (Lista) listaHistorial.getPos(i);
@@ -191,6 +212,13 @@ public class Main extends Application{
         }
     }
     
+    /**
+     * Agrega los mensajes enviados a la 
+     * conversacion con el puerto al que se haya enviado,
+     * si no existía el historial anteriormente, lo crea.
+     * @param msj
+     * @param puerto 
+     */
     public static void crearMensajePropio (String msj, int puerto){
         Text mensaje = new Text ();
         mensaje.setFont(new Font ("Arial", 22));
@@ -223,7 +251,17 @@ public class Main extends Application{
                 VBox mensajesChat = (VBox) sublista.getPos(0);
                 if (puertoChat == puerto){
                     mensajesChat.getChildren().add (mensaje);
+                    return;
                 }
+                Text puertoEnviado = new Text ();
+                puertoEnviado.setStyle("-fx-background: #1E90FF ");
+                puertoEnviado.setFont(new Font ("Arial", 20));
+                puertoEnviado.setText(Integer.toString(puerto));
+                puertoEnviado.setWrappingWidth(100);
+                puertoEnviado.setTextAlignment(TextAlignment.CENTER);
+                mensajes.add(puertoEnviado, 0, posicion);
+                posicion += 1;            
+                puertoEnviado.setOnMouseClicked(e -> mostrarHistorial (Integer.parseInt(puertoEnviado.getText())));                
             }            
         }
     }

@@ -10,21 +10,24 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class Alerta extends Application {
-    public static void display (String msg){//Funcion para mostrar la ventana
-        // Instancias de los widgets
+    /**
+     * Muestra la ventana de error con el mensaje que se le indique
+     * como parámetro.
+     * @param msg 
+     */
+    public static void display (String msg){
         Stage rootAlerta;
         Button buttonOK;
         Text text;
         VBox layoutAlerta;
         Scene scene;
         
-        rootAlerta = new Stage ();//Crea el Stage
+        rootAlerta = new Stage ();
         rootAlerta.setAlwaysOnTop(true);
         rootAlerta.setTitle ("Error!");
-        //Dimensiones de la ventana
         rootAlerta.setMinWidth(200);
         rootAlerta.setMinHeight(100);
-        rootAlerta.setResizable(false); //No deja que la ventana se cambie de tamano
+        rootAlerta.setResizable(false);
         
         text = new Text (msg);
         text.setTextAlignment(TextAlignment.CENTER);
@@ -34,13 +37,13 @@ public class Alerta extends Application {
         
         layoutAlerta = new VBox (10);
         layoutAlerta.getChildren().addAll (text, buttonOK);
-        layoutAlerta.setAlignment(Pos.CENTER); //Alinea todo en el centro
+        layoutAlerta.setAlignment(Pos.CENTER);
         
         scene = new Scene (layoutAlerta, 200, 100);
         
         rootAlerta.setScene (scene);
         
-        rootAlerta.showAndWait (); //Similar al grab_set () de Tkinter 
+        rootAlerta.showAndWait ();
     }
 
     @Override

@@ -1,33 +1,49 @@
 package listaenlazada;
-
+/**
+ * Clase Lista
+ * 
+ * Crea una lista enlazada.
+ * 
+ * @author gatge
+ */
 public class Lista {
-    int length; //Variable para el largo de la lista
-    Nodo head; //Variable para el primer nodo de la lista
+    int length; 
+    Nodo head;
     
     public Lista (){
-        this.length = 0; //inicializa el largo de la lista en 0
-        this.head = null; //Comienza sin ningun nodo dentro de la lista
+        this.length = 0; 
+        this.head = null;
     }
     
-    public int getLength (){ //Retorna el largo de la lista
+    /**
+     * @return un int con el largo que tenga la lista.
+     */
+    public int getLength (){ 
         return this.length;
     }
     
-    public void add (Object valor){ //Agrega un nodo al final de la lista
-        if (this.head == null){ //En caso de que la lista esté vacía
-            this.head = new Nodo (valor); //Crea un nodo con el valor indicado
+    /**
+     * Añade el objeto que reciba como parámetro a la lista.
+     * @param valor 
+     */
+    public void add (Object valor){
+        if (this.head == null){ 
+            this.head = new Nodo (valor); 
         }else{
-            Nodo temp = this.head; //Crea una variable temporal para recorrer la lista
-            while (temp.next != null){ //Recorre la lista buscando un nodo que no tenga next (el ultimo)
-                temp = temp.next; //Avanza un nodo
+            Nodo temp = this.head; 
+            while (temp.next != null){ 
+                temp = temp.next;
             }
-            temp.next = new Nodo (valor); //Enlazada el ultimo nodo con el nuevo nodo creado
-            temp.next.pos = this.length; //Le cambia la posicion al nodo
+            temp.next = new Nodo (valor);
+            temp.next.pos = this.length; 
         }
-        this.length++; //aumenta el largo de la lista
+        this.length++; 
     }
     
-    public void show (){ //Muesta la lista en la consola, en un formato similar a una lista de Python
+    /**
+     * Imprime la lista en la consola.
+     */
+    public void show (){
         if (this.head != null){
             if (this.length == 1){
                 System.out.println ("[" + String.valueOf(this.head.getValor ()) + "]");
@@ -46,6 +62,11 @@ public class Lista {
         }
     }
     
+    /**
+     * Elimina el objeto que se encuentre en 
+     * la posición indicada de la lista.
+     * @param pos 
+     */
     public void delete (int pos){
         Nodo temp = this.head;
         boolean cambiado = false;
@@ -82,6 +103,10 @@ public class Lista {
 
     }
     
+    /**
+     * @param pos
+     * @return devuelve el objeto que esté en la posicion indicada de la lista.
+     */
     public Object getPos (int pos){
         Nodo temp = this.head;
         if (pos == 0){
@@ -93,7 +118,12 @@ public class Lista {
         }
         return temp.next.getValor();
     }
-    
+    /**
+     * Cambia el objeto en la posicion de la 
+     * lista indicada por el objeto que se reciba como parámetro.
+     * @param pos
+     * @param valor 
+     */
     public void setPos (int pos, Object valor){
         Nodo temp = this.head;
         if (pos == 0){

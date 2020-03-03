@@ -226,6 +226,11 @@ public class Main extends Application{
         mensaje.setWrappingWidth(216);
         mensaje.setTextAlignment(TextAlignment.RIGHT);
         mensaje.setFill(Color.DEEPPINK);
+        Text puertoEnviado = new Text ();
+        puertoEnviado.setStyle("-fx-background: #1E90FF ");
+        puertoEnviado.setFont(new Font ("Arial", 20));
+        puertoEnviado.setWrappingWidth(100);
+        puertoEnviado.setTextAlignment(TextAlignment.CENTER);        
         if (listaHistorial.getLength() == 0){
             VBox historial = new VBox ();
             historial.setSpacing(10);
@@ -235,12 +240,7 @@ public class Main extends Application{
             chat.add(historial);
             chat.add(puerto);
             listaHistorial.add(chat);
-            Text puertoEnviado = new Text ();
-            puertoEnviado.setStyle("-fx-background: #1E90FF ");
-            puertoEnviado.setFont(new Font ("Arial", 20));
             puertoEnviado.setText(Integer.toString(puerto));
-            puertoEnviado.setWrappingWidth(100);
-            puertoEnviado.setTextAlignment(TextAlignment.CENTER);
             mensajes.add(puertoEnviado, 0, posicion);
             posicion += 1;            
             puertoEnviado.setOnMouseClicked(e -> mostrarHistorial (Integer.parseInt(puertoEnviado.getText())));
@@ -250,7 +250,21 @@ public class Main extends Application{
                 int puertoChat = (int) sublista.getPos(1);
                 VBox mensajesChat = (VBox) sublista.getPos(0);
                 if (puertoChat == puerto){
-                    mensajesChat.getChildren().add (mensaje);
+                    mensajesChat.getChildren().add (mensaje);                  
+                    return;
+                }else{
+                    VBox historial = new VBox ();
+                    historial.setSpacing(10);
+                    historial.setMaxWidth(234);
+                    historial.getChildren().add(mensaje);
+                    Lista chat = new Lista ();
+                    chat.add(historial);
+                    chat.add(puerto);
+                    listaHistorial.add(chat);
+                    puertoEnviado.setText(Integer.toString(puerto));
+                    mensajes.add(puertoEnviado, 0, posicion);
+                    posicion += 1;            
+                    puertoEnviado.setOnMouseClicked(e -> mostrarHistorial (Integer.parseInt(puertoEnviado.getText())));  
                     return;
                 }                
             }            
